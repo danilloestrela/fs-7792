@@ -3,8 +3,26 @@
   "version": "1.0.0",
   "description": "Estimates made easy.",
   "main": "./dist/server.js",
+  "engines": {
+    "node": "22.12.0",
+    "npm": "10.9.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "tsx watch ./src/server.ts",
+    "build": "tsup ./src --out-dir ./build",
+    "start": "node build/server.js",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "db:generate": "npx prisma generate",
+    "db:migrate": "npx prisma migrate dev",
+    "db:studio": "npx prisma studio",
+    "db:seed": "tsx ./src/prisma/seeds/index.ts",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json,css,md}'",
+    "format:check": "prettier --check 'src/**/*.{ts,tsx,js,jsx,json,css,md}'",
+    "test": "vitest run ",
+    "test:watch": "vitest"
   },
   "prisma": {
     "schema": "./src/prisma/schema"
