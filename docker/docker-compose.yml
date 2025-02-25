@@ -1,0 +1,29 @@
+services:
+     backend:
+       build:
+        context: .
+        dockerfile: ./Dockerfile
+       ports:
+         - 4000:4000
+       depends_on:
+         - db
+       environment:
+         DATABASE_URL: postgres://admin:admin@db:5432/fs_7792
+       networks:
+         - fs-7792
+     db:
+       image: postgres:15-alpine
+       environment:
+         POSTGRES_USER: admin
+         POSTGRES_PASSWORD: admin
+         POSTGRES_DB: fs_7792
+       volumes:
+         - pgdata:/var/lib/postgresql/data
+       networks:
+         - fs-7792
+networks:
+  fs-7792:
+    driver: bridge
+volumes:
+  pgdata:
+    driver: local
